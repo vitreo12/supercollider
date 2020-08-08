@@ -8,9 +8,11 @@ FreqScopeView {
 	var <>specialSynthDef, <specialSynthArgs; // Allows to override the analysis synth
 
 	*initClass {
+		/*
 		StartUp.add {
 			this.initSynthDefs;
 		}
+		*/
 	}
 
 	*new { arg parent, bounds, server;

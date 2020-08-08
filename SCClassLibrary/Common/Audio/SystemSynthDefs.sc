@@ -14,6 +14,7 @@ SystemSynthDefs {
 
 	*initClass {
 
+		/*
 		StartUp.add {
 
 			// clean up any written synthdefs starting with "temp__"
@@ -70,5 +71,6 @@ SystemSynthDefs {
 				}, [\ir, \kr, \ir]).add;
 			};
 		};
+		*/
 	}
 }
