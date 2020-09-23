@@ -5,7 +5,11 @@ export HOMEBREW_NO_ANALYTICS=1
 brew install libsndfile || brew install libsndfile || exit 1
 brew install portaudio || exit 2
 brew install ccache || exit 3
-brew upgrade qt5 || exit 4
+if  [[ ! -z "$QT_FORMULA" ]]; then
+    brew install $QT_FORMULA --force || exit 4
+else
+    brew upgrade qt5 || exit 4
+fi
 brew link qt5 --force || exit 5
 brew install fftw --verbose # temp allow
 

@@ -235,6 +235,17 @@ matrix:
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
 
+    # macOS 10.13 xcode10 legacy build with qt 5.9
+    - os: osx
+      osx_image: xcode10.1
+      env:
+        - JOB_NAME="macos xcode10.1 legacy build with qt 5.9"
+        - QT=true
+        - QT_FORMULA="dyfer/qt/qt@5.9.3"
+        - DO_LINT=false
+        - USE_SYSLIBS=false
+        - SHARED_LIBSCSYNTH=false
+
     # macOS 10.14 xcode10
     - os: osx
       osx_image: xcode10.3
