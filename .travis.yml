@@ -349,7 +349,7 @@ deploy:
  # github releases - only tags
  - provider: releases
    api_key: $GITHUB_KEY
-   file: $HOME/SuperCollider-$VERSION_TO_BUILD-macOS.zip
+   file: $HOME/SuperCollider-$VERSION_TO_BUILD-macOS$DEPLOY_SUFFIX.zip
    prerelease: true
    skip_cleanup: true
    on:
