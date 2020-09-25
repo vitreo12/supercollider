@@ -17,7 +17,7 @@ if  [[ ! -z "$QT_FORMULA" ]]; then
 elif $UPDATE_HOMEBREW; then
     brew upgrade qt5 || exit 4
 fi
-brew install fftw # do not abort in this step - fftw dependencies' install may fail, but this is not an issue for us
+brew install fftw # do not abort in this step - fftw dependency install may fail, but this is not fatal
 
 if $USE_SYSLIBS; then
     # boost is already installed
