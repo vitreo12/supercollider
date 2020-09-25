@@ -9,8 +9,8 @@ matrix:
     #    clang {4, 5, 6, 7, 8, 9, 10}
     # gcc 6, clang 4 are on xenial, all others on bionic
     #
-    # macOS jobs: xcode 10.3, xcode 11.3, xcode 11.3-using-syslibs, xcode 11.3-shared-libscsynth
-    # both on Mojave 10.14
+    # macOS jobs: xcode 10.1, xcode 11.3, xcode 11.3-using-syslibs, xcode 11.3-shared-libscsynth
+    # xcode 10 is on High Sierra 10.13, xcode 11 are on Mojave 10.14
     #
     # macOS is deployed from the plain xcode 11.3 job
 
