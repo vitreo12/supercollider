@@ -234,8 +234,6 @@ matrix:
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-        - DO_DEPLOY=YES
-        - DEPLOY_SUFFIX="-legacy"
 
     # macOS 10.13 xcode10 legacy build with qt 5.9
     - os: osx
@@ -249,6 +247,7 @@ matrix:
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
         - DO_DEPLOY=YES
+        - DEPLOY_SUFFIX="-legacy"
 
     # macOS 10.14 xcode11
     - os: osx
