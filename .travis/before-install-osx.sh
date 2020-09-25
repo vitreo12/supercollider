@@ -2,8 +2,11 @@
 
 export HOMEBREW_NO_ANALYTICS=1
 
-if ! $UPDATE_HOMEBREW; then
-   export HOMEBREW_NO_AUTO_UPDATE=1
+if $UPDATE_HOMEBREW; then
+    #run update first so that possible update errors won't hold up package installation
+    brew update
+else
+    export HOMEBREW_NO_AUTO_UPDATE=1
 fi
 
 brew install libsndfile || exit 1
