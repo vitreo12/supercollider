@@ -246,16 +246,6 @@ matrix:
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
 
-    # macOS 10.14 xcode10
-    - os: osx
-      osx_image: xcode10.3
-      env:
-        - JOB_NAME="macos xcode10.3"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-
     # macOS 10.14 xcode11
     - os: osx
       osx_image: xcode11.3
