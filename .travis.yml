@@ -234,6 +234,8 @@ matrix:
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
+        - DO_DEPLOY=YES
+        - DEPLOY_SUFFIX="-legacy"
 
     # macOS 10.13 xcode10 legacy build with qt 5.9
     - os: osx
@@ -246,6 +248,7 @@ matrix:
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
+        - DO_DEPLOY=YES
 
     # macOS 10.14 xcode11
     - os: osx
@@ -320,7 +323,7 @@ before_deploy:
  # required for github releases
  - export BUILD_PREFIX=$TRAVIS_REPO_SLUG/$TRAVIS_OS_NAME
  - export S3_BUILDS_LOCATION=builds/$BUILD_PREFIX
- - export S3_URL=https://supercollider.s3.amazonaws.com/$S3_BUILDS_LOCATION/SC-$TRAVIS_COMMIT.zip
+ - export S3_URL=https://supercollider.s3.amazonaws.com/$S3_BUILDS_LOCATION/SC-$TRAVIS_COMMIT$DEPLOY_SUFFIX.zip
  - export FWD_HTML='<html><head><meta http-equiv="refresh" content="0; url='$S3_URL'" /></head></html>'
  # put everything to be archived in artifacts/
  - mkdir -p "$HOME/artifacts/${TRAVIS_BRANCH%/*}"
