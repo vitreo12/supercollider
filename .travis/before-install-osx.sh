@@ -14,7 +14,6 @@ if  [[ ! -z "$QT_FORMULA" ]]; then
 elif $UPDATE_HOMEBREW; then
     brew upgrade qt5 || exit 4
 fi
-brew link qt5 --force || exit 5
 brew install fftw --verbose # temp allow
 
 if $USE_SYSLIBS; then
