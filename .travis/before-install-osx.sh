@@ -20,7 +20,7 @@ elif $UPDATE_HOMEBREW; then
     brew upgrade qt5 || exit 4
 fi
 echo "RUNNING brew install fftw"
-brew install fftw || exit 6
+brew install fftw # do not abort in this step - fftw dependencies' install may fail, but this is not an issue for us
 
 if $USE_SYSLIBS; then
     # boost is already installed
