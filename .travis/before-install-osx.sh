@@ -14,7 +14,7 @@ if  [[ ! -z "$QT_FORMULA" ]]; then
 elif $UPDATE_HOMEBREW; then
     brew upgrade qt5 || exit 4
 fi
-brew install fftw --verbose # temp allow
+brew install fftw || exit 6
 
 if $USE_SYSLIBS; then
     # boost is already installed
