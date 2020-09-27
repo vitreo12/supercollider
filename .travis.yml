@@ -253,6 +253,7 @@ matrix:
       osx_image: xcode11.3
       env:
         - JOB_NAME="macos xcode11.3"
+        - IS_LEGACY_BUILD=false
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=false
@@ -265,6 +266,7 @@ matrix:
       osx_image: xcode11.3
       env:
         - JOB_NAME="macos xcode11.3 with syslibs"
+        - IS_LEGACY_BUILD=false
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=true
@@ -275,6 +277,7 @@ matrix:
       osx_image: xcode11.3
       env:
         - JOB_NAME="macos xcode11.3 with shared libscsynth"
+        - IS_LEGACY_BUILD=false
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=false
