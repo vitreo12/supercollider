@@ -7,7 +7,7 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 if ! $IS_LEGACY_BUILD; then
     #run update first so that possible update errors won't hold up package installation
     brew update --preinstall
-else
+fi
 
 brew install libsndfile || exit 1
 brew install portaudio || exit 2
