@@ -311,9 +311,7 @@ script:
  - $TRAVIS_BUILD_DIR/.travis/test.sh
 # only on osx for now
  - echo $DO_DEPLOY
- - if [[ ! -z "$DO_DEPLOY" ]]; then echo hi; fi
- - if [[ -z "$DO_DEPLOY" ]]; then echo hi; fi
- - if [[ ! -z "$DO_DEPLOY" ]]; then $TRAVIS_BUILD_DIR/.travis/package-$TRAVIS_OS_NAME.sh; fi
+ - if [[ ! -z "$DO_DEPLOY" ]]; then echo "Running deployment"; $TRAVIS_BUILD_DIR/.travis/package-$TRAVIS_OS_NAME.sh; fi
 
 before_deploy:
  # required for github releases
