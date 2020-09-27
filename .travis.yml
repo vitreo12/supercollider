@@ -319,7 +319,7 @@ before_deploy:
  # required for github releases
  - export BUILD_PREFIX=$TRAVIS_REPO_SLUG/$TRAVIS_OS_NAME
  - export S3_BUILDS_LOCATION=builds/$BUILD_PREFIX
- - export S3_URL=https://supercollider.s3.amazonaws.com/$S3_BUILDS_LOCATION/SC$DEPLOY_SUFFIX-$TRAVIS_COMMIT.zip
+ - export S3_URL=https://supercollider.s3.amazonaws.com/$S3_BUILDS_LOCATION/SC-$TRAVIS_COMMIT.zip
  - export FWD_HTML='<html><head><meta http-equiv="refresh" content="0; url='$S3_URL'" /></head></html>'
  # put everything to be archived in artifacts/
  - mkdir -p "$HOME/artifacts/${TRAVIS_BRANCH%/*}"
@@ -340,7 +340,7 @@ deploy:
    endpoint: s3-us-west-2.amazonaws.com
    acl: public_read
    on:
-     condition: $TRAVIS_OS_NAME = osx && ! -z $AWS_KEY && ! -z $AWS_SECRET && ! -z $DO_DEPLOY
+     condition: $TRAVIS_OS_NAME = osx && ! -z $AWS_KEY && ! -z $AWS_SECRET && ! -z $DO_DEPLOY && ! $IS_LEGACY_BUILD
      all_branches: true
  # github releases - only tags
  - provider: releases
