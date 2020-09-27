@@ -241,7 +241,6 @@ matrix:
       env:
         - JOB_NAME="macos xcode10.1 legacy build with qt 5.9"
         - IS_LEGACY_BUILD=true
-        - QT_FORMULA="supercollider/formulae/qt@5.9.3"
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=false
