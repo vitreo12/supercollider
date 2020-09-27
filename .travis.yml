@@ -255,7 +255,6 @@ matrix:
       env:
         - JOB_NAME="macos xcode11.3"
         - UPDATE_HOMEBREW=true
-        - QT_FORMULA="dyfer/qt/qt@5.15.0" # temporary, see issue 5175
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=false
@@ -269,7 +268,6 @@ matrix:
       env:
         - JOB_NAME="macos xcode11.3 with syslibs"
         - UPDATE_HOMEBREW=true
-        - QT_FORMULA="dyfer/qt/qt@5.15.0" # temporary, see issue 5175
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=true
@@ -281,7 +279,6 @@ matrix:
       env:
         - JOB_NAME="macos xcode11.3 with shared libscsynth"
         - UPDATE_HOMEBREW=true
-        - QT_FORMULA="dyfer/qt/qt@5.15.0" # temporary, see issue 5175
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=false
