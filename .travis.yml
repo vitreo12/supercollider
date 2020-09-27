@@ -240,7 +240,7 @@ matrix:
       osx_image: xcode10.1
       env:
         - JOB_NAME="macos xcode10.1 legacy build with qt 5.9"
-        - UPDATE_HOMEBREW=false
+        - IS_LEGACY_BUILD=true
         - QT_FORMULA="supercollider/formulae/qt@5.9.3"
         - QT=true
         - DO_LINT=false
@@ -254,7 +254,6 @@ matrix:
       osx_image: xcode11.3
       env:
         - JOB_NAME="macos xcode11.3"
-        - UPDATE_HOMEBREW=true
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=false
@@ -267,7 +266,6 @@ matrix:
       osx_image: xcode11.3
       env:
         - JOB_NAME="macos xcode11.3 with syslibs"
-        - UPDATE_HOMEBREW=true
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=true
@@ -278,7 +276,6 @@ matrix:
       osx_image: xcode11.3
       env:
         - JOB_NAME="macos xcode11.3 with shared libscsynth"
-        - UPDATE_HOMEBREW=true
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=false

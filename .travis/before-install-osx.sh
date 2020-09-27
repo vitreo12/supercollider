@@ -1,21 +1,21 @@
 #!/bin/sh
 
 export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALL_CLEANUP=1
 
-if $UPDATE_HOMEBREW; then
+if ! $IS_LEGACY_BUILD; then
     #run update first so that possible update errors won't hold up package installation
-    brew update
+    brew update --preinstall
 else
-    export HOMEBREW_NO_AUTO_UPDATE=1
-fi
 
 brew install libsndfile || exit 1
 brew install portaudio || exit 2
 brew install ccache || exit 3
-if  [[ ! -z "$QT_FORMULA" ]]; then
-    brew install $QT_FORMULA --force || exit 4
-elif $UPDATE_HOMEBREW; then
-    brew upgrade qt5 || exit 4
+if $IS_LEGACY_BUILD; then
+  brew install supercollider/formulae/qt@5.9. --force || exit 4
+else
+  brew upgrade qt5 || exit 4
 fi
 brew install fftw # do not abort in this step - fftw dependency install may fail, but this is not fatal
 
