@@ -245,6 +245,7 @@ matrix:
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
+        - DEPLOY_AWS_PREFIX="SC-legacy-" #turn on AWS deployment
         - DEPLOY_GITHUB_SUFFIX="-macOS-legacy" #turn on Github deployment
 
     # macOS 10.14 xcode11
