@@ -245,8 +245,7 @@ matrix:
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-        - DO_DEPLOY=YES
-        - DEPLOY_SUFFIX="-macOS-legacy"
+        - DEPLOY_GITHUB_SUFFIX="-macOS-legacy" #turn on Github deployment
 
     # macOS 10.14 xcode11
     - os: osx
@@ -258,8 +257,8 @@ matrix:
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-        - DO_DEPLOY=YES # presence option
-        - DEPLOY_SUFFIX="-macOS"
+        - DEPLOY_AWS_PREFIX="SC-" #turn on AWS deployment
+        - DEPLOY_GITHUB_SUFFIX="-macOS" #turn on Github deployment
 
     # macOS 10.14 xcode11 use_syslibs
     - os: osx
@@ -310,14 +309,17 @@ script:
  - $TRAVIS_BUILD_DIR/.travis/script-$TRAVIS_OS_NAME.sh
  - $TRAVIS_BUILD_DIR/.travis/test.sh
 # only on osx for now
- - echo $DO_DEPLOY
- - if [[ ! -z "$DO_DEPLOY" ]]; then echo "Running deployment"; $TRAVIS_BUILD_DIR/.travis/package-$TRAVIS_OS_NAME.sh; fi
+ - echo $DEPLOY_AWS_PREFIX
+ - echo $DEPLOY_GITHUB_SUFFIX
+ - if [[ ! -z "$DEPLOY_AWS_PREFIX" ]] || [[ ! -z "$DEPLOY_GITHUB_SUFFIX" ]]; then $TRAVIS_BUILD_DIR/.travis/package-$TRAVIS_OS_NAME.sh; fi
 
 before_deploy:
  # required for github releases
  - export BUILD_PREFIX=$TRAVIS_REPO_SLUG/$TRAVIS_OS_NAME
+ - export ARTIFACT_AWS_NAME = $DEPLOY_AWS_PREFIX$TRAVIS_COMMIT
+ - export ARTIFACT_GH_NAME = $SuperCollider-$VERSION_TO_BUILD$DEPLOY_GITHUB_SUFFIX
  - export S3_BUILDS_LOCATION=builds/$BUILD_PREFIX
- - export S3_URL=https://supercollider.s3.amazonaws.com/$S3_BUILDS_LOCATION/SC-$TRAVIS_COMMIT.zip
+ - export S3_URL=https://supercollider.s3.amazonaws.com/$S3_BUILDS_LOCATION/$ARTIFACT_AWS_NAME.zip
  - export FWD_HTML='<html><head><meta http-equiv="refresh" content="0; url='$S3_URL'" /></head></html>'
  # put everything to be archived in artifacts/
  - mkdir -p "$HOME/artifacts/${TRAVIS_BRANCH%/*}"
@@ -338,21 +340,21 @@ deploy:
    endpoint: s3-us-west-2.amazonaws.com
    acl: public_read
    on:
-     condition: $TRAVIS_OS_NAME = osx && ! -z $AWS_KEY && ! -z $AWS_SECRET && ! -z $DO_DEPLOY && ! $IS_LEGACY_BUILD
+     condition: $TRAVIS_OS_NAME = osx && ! -z $AWS_KEY && ! -z $AWS_SECRET && ! -z $DEPLOY_AWS_PREFIX
      all_branches: true
  # github releases - only tags
  - provider: releases
    api_key: $GITHUB_KEY
-   file: $HOME/SuperCollider-$VERSION_TO_BUILD$DEPLOY_SUFFIX.zip
+   file: $HOME/$ARTIFACT_GH_NAME.zip
    prerelease: true
    skip_cleanup: true
    on:
-     condition: $TRAVIS_OS_NAME = osx && ! -z $GITHUB_KEY && ! -z $DO_DEPLOY
+     condition: $TRAVIS_OS_NAME = osx && ! -z $GITHUB_KEY && ! -z $DEPLOY_GITHUB_SUFFIX
      tags: true
      all_branches: true
 
 after_deploy:
- - "echo S3 Build Location: $S3_URL"
+ - 'if [[ ! -z "$DEPLOY_AWS_PREFIX" ]]; then echo S3 Build Location: $S3_URL; fi' 
 
 notifications:
   on_success: change
