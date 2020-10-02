@@ -339,7 +339,7 @@ deploy:
    endpoint: s3-us-west-2.amazonaws.com
    acl: public_read
    on:
-     condition: $TRAVIS_OS_NAME = osx && ! -z $AWS_KEY && ! -z $AWS_SECRET && ! -z $DEPLOY_AWS_PREFIX
+     condition: $TRAVIS_OS_NAME = osx && -n $AWS_KEY && -n $AWS_SECRET && -n $DEPLOY_AWS_PREFIX
      all_branches: true
  # github releases - only tags
  - provider: releases
@@ -348,12 +348,12 @@ deploy:
    prerelease: true
    skip_cleanup: true
    on:
-     condition: $TRAVIS_OS_NAME = osx && ! -z $GITHUB_KEY && ! -z $DEPLOY_GITHUB_SUFFIX
+     condition: $TRAVIS_OS_NAME = osx && -n $GITHUB_KEY && -n $DEPLOY_GITHUB_SUFFIX
      tags: true
      all_branches: true
 
 after_deploy:
- - if [[ ! -z "$DEPLOY_AWS_PREFIX" ]]; then echo S3 Build Location: $S3_URL; fi
+ - if [[ -n "$DEPLOY_AWS_PREFIX" ]]; then echo S3 Build Location: $S3_URL; fi
 
 notifications:
   on_success: change
