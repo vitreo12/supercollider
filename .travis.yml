@@ -324,7 +324,7 @@ before_deploy:
  - mkdir -p "$HOME/artifacts/${TRAVIS_BRANCH%/*}"
  - mkdir -p "$HOME/artifacts/${TRAVIS_TAG%/*}"
  - echo $FWD_HTML > $HOME/artifacts/$TRAVIS_BRANCH-latest.html
- - 'if [[ $TRAVIS_TAG != "head" ]]; then echo $FWD_HTML > $HOME/artifacts/$TRAVIS_TAG.html; fi;'
+ - if [[ $TRAVIS_TAG != "head" ]]; then echo $FWD_HTML > $HOME/artifacts/$TRAVIS_TAG.html; fi;
 
 deploy:
  # s3 upload - every commit
@@ -353,7 +353,7 @@ deploy:
      all_branches: true
 
 after_deploy:
- - 'if [[ ! -z "$DEPLOY_AWS_PREFIX" ]]; then echo S3 Build Location: $S3_URL; fi' 
+ - if [[ ! -z "$DEPLOY_AWS_PREFIX" ]]; then echo S3 Build Location: $S3_URL; fi
 
 notifications:
   on_success: change
