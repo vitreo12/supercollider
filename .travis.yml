@@ -245,8 +245,8 @@ matrix:
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-        - DEPLOY_AWS_PREFIX="SC-legacy-" # turn on AWS deployment
-        - DEPLOY_GITHUB_SUFFIX="-macOS-legacy" # turn on Github deployment
+        - S3_DEPLOY_PREFIX="SC-legacy-" # turn on S3 deployment
+        - GITHUB_DEPLOY_SUFFIX="-macOS-legacy" # turn on Github deployment
 
     # macOS 10.14 xcode11
     - os: osx
@@ -258,8 +258,8 @@ matrix:
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-        - DEPLOY_AWS_PREFIX="SC-" # turn on AWS deployment
-        - DEPLOY_GITHUB_SUFFIX="-macOS" # turn on Github deployment
+        - S3_DEPLOY_PREFIX="SC-" # turn on S3 deployment
+        - GITHUB_DEPLOY_SUFFIX="-macOS" # turn on Github deployment
 
     # macOS 10.14 xcode11 use_syslibs
     - os: osx
@@ -310,13 +310,13 @@ script:
  - $TRAVIS_BUILD_DIR/.travis/script-$TRAVIS_OS_NAME.sh
  - $TRAVIS_BUILD_DIR/.travis/test.sh
 # only on osx for now
- - if [[ -n "$DEPLOY_AWS_PREFIX" || -n "$DEPLOY_GITHUB_SUFFIX" ]]; then $TRAVIS_BUILD_DIR/.travis/package-$TRAVIS_OS_NAME.sh; fi
+ - if [[ -n "$S3_DEPLOY_PREFIX" || -n "$GITHUB_DEPLOY_SUFFIX" ]]; then $TRAVIS_BUILD_DIR/.travis/package-$TRAVIS_OS_NAME.sh; fi
 
 before_deploy:
  # required for github releases
  - export BUILD_PREFIX=$TRAVIS_REPO_SLUG/$TRAVIS_OS_NAME
- - export S3_ARTIFACT_NAME=${DEPLOY_AWS_PREFIX}${TRAVIS_COMMIT}
- - export GITHUB_ARTIFACT_NAME=SuperCollider-${VERSION_TO_BUILD}${DEPLOY_GITHUB_SUFFIX}
+ - export S3_ARTIFACT_NAME=${S3_DEPLOY_PREFIX}${TRAVIS_COMMIT}
+ - export GITHUB_ARTIFACT_NAME=SuperCollider-${VERSION_TO_BUILD}${GITHUB_DEPLOY_SUFFIX}
  - export S3_BUILDS_LOCATION=builds/$BUILD_PREFIX
  - export S3_URL=https://supercollider.s3.amazonaws.com/$S3_BUILDS_LOCATION/$S3_ARTIFACT_NAME.zip
  - export FWD_HTML='<html><head><meta http-equiv="refresh" content="0; url='$S3_URL'" /></head></html>'
@@ -339,7 +339,7 @@ deploy:
    endpoint: s3-us-west-2.amazonaws.com
    acl: public_read
    on:
-     condition: $TRAVIS_OS_NAME = osx && -n $AWS_KEY && -n $AWS_SECRET && -n $DEPLOY_AWS_PREFIX
+     condition: $TRAVIS_OS_NAME = osx && -n $AWS_KEY && -n $AWS_SECRET && -n $S3_DEPLOY_PREFIX
      all_branches: true
  # github releases - only tags
  - provider: releases
@@ -348,12 +348,12 @@ deploy:
    prerelease: true
    skip_cleanup: true
    on:
-     condition: $TRAVIS_OS_NAME = osx && -n $GITHUB_KEY && -n $DEPLOY_GITHUB_SUFFIX
+     condition: $TRAVIS_OS_NAME = osx && -n $GITHUB_KEY && -n $GITHUB_DEPLOY_SUFFIX
      tags: true
      all_branches: true
 
 after_deploy:
- - if [[ -n "$DEPLOY_AWS_PREFIX" ]]; then echo S3 Build Location: $S3_URL; fi
+ - if [[ -n "$S3_DEPLOY_PREFIX" ]]; then echo S3 Build Location: $S3_URL; fi
 
 notifications:
   on_success: change
