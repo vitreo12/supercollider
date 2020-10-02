@@ -311,13 +311,13 @@ script:
  - $TRAVIS_BUILD_DIR/.travis/script-$TRAVIS_OS_NAME.sh
  - $TRAVIS_BUILD_DIR/.travis/test.sh
 # only on osx for now
+ - export S3_ARTIFACT_NAME=${S3_DEPLOY_PREFIX}${TRAVIS_COMMIT}
+ - export GITHUB_ARTIFACT_NAME=SuperCollider-${VERSION_TO_BUILD}${GITHUB_DEPLOY_SUFFIX}
  - if [[ -n "$S3_DEPLOY_PREFIX" || -n "$GITHUB_DEPLOY_SUFFIX" ]]; then $TRAVIS_BUILD_DIR/.travis/package-$TRAVIS_OS_NAME.sh; fi
 
 before_deploy:
  # required for github releases
  - export BUILD_PREFIX=$TRAVIS_REPO_SLUG/$TRAVIS_OS_NAME
- - export S3_ARTIFACT_NAME=${S3_DEPLOY_PREFIX}${TRAVIS_COMMIT}
- - export GITHUB_ARTIFACT_NAME=SuperCollider-${VERSION_TO_BUILD}${GITHUB_DEPLOY_SUFFIX}
  - export S3_BUILDS_LOCATION=builds/$BUILD_PREFIX
  - export S3_URL=https://supercollider.s3.amazonaws.com/$S3_BUILDS_LOCATION/$S3_ARTIFACT_NAME.zip
  - export FWD_HTML='<html><head><meta http-equiv="refresh" content="0; url='$S3_URL'" /></head></html>'
