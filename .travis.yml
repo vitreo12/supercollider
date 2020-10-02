@@ -310,9 +310,9 @@ before_script:
 script:
  - $TRAVIS_BUILD_DIR/.travis/script-$TRAVIS_OS_NAME.sh
  - $TRAVIS_BUILD_DIR/.travis/test.sh
-# only on osx for now
  - export S3_ARTIFACT_NAME=${S3_DEPLOY_PREFIX}${TRAVIS_COMMIT}
  - export GITHUB_ARTIFACT_NAME=SuperCollider-${VERSION_TO_BUILD}${GITHUB_DEPLOY_SUFFIX}
+# only on osx for now
  - if [[ -n "$S3_DEPLOY_PREFIX" || -n "$GITHUB_DEPLOY_SUFFIX" ]]; then $TRAVIS_BUILD_DIR/.travis/package-$TRAVIS_OS_NAME.sh; fi
 
 before_deploy:
