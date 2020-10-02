@@ -245,8 +245,8 @@ matrix:
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-        - DEPLOY_AWS_PREFIX="SC-legacy-" #turn on AWS deployment
-        - DEPLOY_GITHUB_SUFFIX="-macOS-legacy" #turn on Github deployment
+        - DEPLOY_AWS_PREFIX="SC-legacy-" # turn on AWS deployment
+        - DEPLOY_GITHUB_SUFFIX="-macOS-legacy" # turn on Github deployment
 
     # macOS 10.14 xcode11
     - os: osx
@@ -258,8 +258,8 @@ matrix:
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-        - DEPLOY_AWS_PREFIX="SC-" #turn on AWS deployment
-        - DEPLOY_GITHUB_SUFFIX="-macOS" #turn on Github deployment
+        - DEPLOY_AWS_PREFIX="SC-" # turn on AWS deployment
+        - DEPLOY_GITHUB_SUFFIX="-macOS" # turn on Github deployment
 
     # macOS 10.14 xcode11 use_syslibs
     - os: osx
@@ -310,17 +310,15 @@ script:
  - $TRAVIS_BUILD_DIR/.travis/script-$TRAVIS_OS_NAME.sh
  - $TRAVIS_BUILD_DIR/.travis/test.sh
 # only on osx for now
- - echo $DEPLOY_AWS_PREFIX
- - echo $DEPLOY_GITHUB_SUFFIX
  - if [[ ! -z "$DEPLOY_AWS_PREFIX" ]] || [[ ! -z "$DEPLOY_GITHUB_SUFFIX" ]]; then $TRAVIS_BUILD_DIR/.travis/package-$TRAVIS_OS_NAME.sh; fi
 
 before_deploy:
  # required for github releases
  - export BUILD_PREFIX=$TRAVIS_REPO_SLUG/$TRAVIS_OS_NAME
- - export ARTIFACT_AWS_NAME = $DEPLOY_AWS_PREFIX$TRAVIS_COMMIT
- - export ARTIFACT_GH_NAME = $SuperCollider-$VERSION_TO_BUILD$DEPLOY_GITHUB_SUFFIX
+ - export S3_ARTIFACT_NAME = $DEPLOY_AWS_PREFIX$TRAVIS_COMMIT
+ - export GITHUB_ARTIFACT_NAME = SuperCollider-$VERSION_TO_BUILD$DEPLOY_GITHUB_SUFFIX
  - export S3_BUILDS_LOCATION=builds/$BUILD_PREFIX
- - export S3_URL=https://supercollider.s3.amazonaws.com/$S3_BUILDS_LOCATION/$ARTIFACT_AWS_NAME.zip
+ - export S3_URL=https://supercollider.s3.amazonaws.com/$S3_BUILDS_LOCATION/$S3_ARTIFACT_NAME.zip
  - export FWD_HTML='<html><head><meta http-equiv="refresh" content="0; url='$S3_URL'" /></head></html>'
  # put everything to be archived in artifacts/
  - mkdir -p "$HOME/artifacts/${TRAVIS_BRANCH%/*}"
@@ -346,7 +344,7 @@ deploy:
  # github releases - only tags
  - provider: releases
    api_key: $GITHUB_KEY
-   file: $HOME/$ARTIFACT_GH_NAME.zip
+   file: $HOME/$GITHUB_ARTIFACT_NAME.zip
    prerelease: true
    skip_cleanup: true
    on:
