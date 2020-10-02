@@ -310,7 +310,7 @@ script:
  - $TRAVIS_BUILD_DIR/.travis/script-$TRAVIS_OS_NAME.sh
  - $TRAVIS_BUILD_DIR/.travis/test.sh
 # only on osx for now
- - if [[ ! -z "$DEPLOY_AWS_PREFIX" ]] || [[ ! -z "$DEPLOY_GITHUB_SUFFIX" ]]; then $TRAVIS_BUILD_DIR/.travis/package-$TRAVIS_OS_NAME.sh; fi
+ - if [[ -n "$DEPLOY_AWS_PREFIX" || -n "$DEPLOY_GITHUB_SUFFIX" ]]; then $TRAVIS_BUILD_DIR/.travis/package-$TRAVIS_OS_NAME.sh; fi
 
 before_deploy:
  # required for github releases
