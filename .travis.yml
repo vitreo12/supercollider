@@ -13,6 +13,55 @@ matrix:
     # xcode 10 is on High Sierra 10.13, xcode 11 are on Mojave 10.14
     #
     # macOS is deployed from the plain xcode 11.3 job
+    # macOS jobs (taking longer time to finish) run first to decrease overall build time
+
+    # macOS 10.13 xcode10 legacy build with qt 5.9
+    - os: osx
+      osx_image: xcode10.1
+      env:
+        - JOB_NAME="macos xcode10.1 legacy build with qt 5.9"
+        - IS_LEGACY_BUILD=true
+        - QT=true
+        - DO_LINT=false
+        - USE_SYSLIBS=false
+        - SHARED_LIBSCSYNTH=false
+        - S3_DEPLOY_PREFIX="SC-legacy-" # turn on S3 deployment
+        - GITHUB_DEPLOY_SUFFIX="-macOS-legacy" # turn on Github deployment
+
+    # macOS 10.14 xcode11
+    - os: osx
+      osx_image: xcode11.3
+      env:
+        - JOB_NAME="macos xcode11.3"
+        - IS_LEGACY_BUILD=false
+        - QT=true
+        - DO_LINT=false
+        - USE_SYSLIBS=false
+        - SHARED_LIBSCSYNTH=false
+        - S3_DEPLOY_PREFIX="SC-" # turn on S3 deployment
+        - GITHUB_DEPLOY_SUFFIX="-macOS" # turn on Github deployment
+
+    # macOS 10.14 xcode11 use_syslibs
+    - os: osx
+      osx_image: xcode11.3
+      env:
+        - JOB_NAME="macos xcode11.3 with syslibs"
+        - IS_LEGACY_BUILD=false
+        - QT=true
+        - DO_LINT=false
+        - USE_SYSLIBS=true
+        - SHARED_LIBSCSYNTH=false
+
+    # macOS 10.14 xcode11 shared_scsynth (LIBSCSYNTH)
+    - os: osx
+      osx_image: xcode11.3
+      env:
+        - JOB_NAME="macos xcode11.3 with shared libscsynth"
+        - IS_LEGACY_BUILD=false
+        - QT=true
+        - DO_LINT=false
+        - USE_SYSLIBS=false
+        - SHARED_LIBSCSYNTH=true
 
     # Ubuntu 16.04 gcc6
     - os: linux
@@ -234,54 +283,6 @@ matrix:
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-
-    # macOS 10.13 xcode10 legacy build with qt 5.9
-    - os: osx
-      osx_image: xcode10.1
-      env:
-        - JOB_NAME="macos xcode10.1 legacy build with qt 5.9"
-        - IS_LEGACY_BUILD=true
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-        - S3_DEPLOY_PREFIX="SC-legacy-" # turn on S3 deployment
-        - GITHUB_DEPLOY_SUFFIX="-macOS-legacy" # turn on Github deployment
-
-    # macOS 10.14 xcode11
-    - os: osx
-      osx_image: xcode11.3
-      env:
-        - JOB_NAME="macos xcode11.3"
-        - IS_LEGACY_BUILD=false
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-        - S3_DEPLOY_PREFIX="SC-" # turn on S3 deployment
-        - GITHUB_DEPLOY_SUFFIX="-macOS" # turn on Github deployment
-
-    # macOS 10.14 xcode11 use_syslibs
-    - os: osx
-      osx_image: xcode11.3
-      env:
-        - JOB_NAME="macos xcode11.3 with syslibs"
-        - IS_LEGACY_BUILD=false
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=true
-        - SHARED_LIBSCSYNTH=false
-
-    # macOS 10.14 xcode11 shared_scsynth (LIBSCSYNTH)
-    - os: osx
-      osx_image: xcode11.3
-      env:
-        - JOB_NAME="macos xcode11.3 with shared libscsynth"
-        - IS_LEGACY_BUILD=false
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=true
 
 # use ccache to speed up build times. on osx,
 # we install it during the the before_install step
