@@ -19,270 +19,79 @@ matrix:
     - os: osx
       osx_image: xcode10.1
       env:
-        - JOB_NAME="macos xcode10.1 legacy build with qt 5.9"
+        - JOB_NAME="macos xcode10.1"
         - IS_LEGACY_BUILD=true
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-        - S3_DEPLOY_PREFIX="SC-legacy-" # turn on S3 deployment
-        - GITHUB_DEPLOY_SUFFIX="-macOS-legacy" # turn on Github deployment
+        - S3_DEPLOY_PREFIX="SC-xcode10.1-" # turn on S3 deployment
+        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode10.1" # turn on Github deployment
+
+    - os: osx
+      osx_image: xcode10.1
+      env:
+        - JOB_NAME="macos xcode10.1 new qt"
+        - IS_LEGACY_BUILD=false
+        - QT=true
+        - DO_LINT=false
+        - USE_SYSLIBS=false
+        - SHARED_LIBSCSYNTH=false
+        - S3_DEPLOY_PREFIX="SC-xcode10.1-newQT-" # turn on S3 deployment
+        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode10.1-newQT" # turn on Github deployment
 
     # macOS 10.14 xcode11
     - os: osx
       osx_image: xcode11.3
       env:
         - JOB_NAME="macos xcode11.3"
-        - IS_LEGACY_BUILD=false
+        - IS_LEGACY_BUILD=true
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-        - S3_DEPLOY_PREFIX="SC-" # turn on S3 deployment
-        - GITHUB_DEPLOY_SUFFIX="-macOS" # turn on Github deployment
+        - S3_DEPLOY_PREFIX="SC-xcode11.3-" # turn on S3 deployment
+        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.3" # turn on Github deployment
 
-    # macOS 10.14 xcode11 use_syslibs
+    # macOS 10.14 xcode11
     - os: osx
       osx_image: xcode11.3
       env:
-        - JOB_NAME="macos xcode11.3 with syslibs"
+        - JOB_NAME="macos xcode11.3 new qt"
         - IS_LEGACY_BUILD=false
         - QT=true
         - DO_LINT=false
-        - USE_SYSLIBS=true
+        - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
+        - S3_DEPLOY_PREFIX="SC-xcode11.3-newQT-" # turn on S3 deployment
+        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.3-newQT" # turn on Github deployment
 
-    # macOS 10.14 xcode11 shared_scsynth (LIBSCSYNTH)
+
+    # macOS 10.15 xcode11
     - os: osx
-      osx_image: xcode11.3
+      osx_image: xcode11.6
       env:
-        - JOB_NAME="macos xcode11.3 with shared libscsynth"
+        - JOB_NAME="macos xcode11.6"
+        - IS_LEGACY_BUILD=true
+        - QT=true
+        - DO_LINT=false
+        - USE_SYSLIBS=false
+        - SHARED_LIBSCSYNTH=false
+        - S3_DEPLOY_PREFIX="SC-xcode11.3-" # turn on S3 deployment
+        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.3" # turn on Github deployment
+
+    # macOS 10.15 xcode11
+    - os: osx
+      osx_image: xcode11.6
+      env:
+        - JOB_NAME="macos xcode11.6 new qt"
         - IS_LEGACY_BUILD=false
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=true
-
-    # Ubuntu 16.04 gcc6
-    - os: linux
-      dist: xenial
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6
-      env:
-        - JOB_NAME="xenial gcc6"
-        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-
-    # Ubuntu 18.04 gcc7
-    - os: linux
-      dist: bionic
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-      env:
-        - JOB_NAME="bionic gcc7"
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-
-    # Ubuntu 18.04 gcc8
-    - os: linux
-      dist: bionic
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-8
-      env:
-        - JOB_NAME="bionic gcc8"
-        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-
-    # Ubuntu 18.04 gcc9
-    - os: linux
-      dist: bionic
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-9
-      env:
-        - JOB_NAME="bionic gcc9"
-        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-
-    # Ubuntu 18.04 gcc10
-    - os: linux
-      dist: bionic
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-10
-      env:
-        - JOB_NAME="bionic gcc10"
-        - MATRIX_EVAL="CC=gcc-10 && CXX=g++-10"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-
-    # Ubuntu 18.04 gcc9 shared libscsynth (LIBSCSYNTH=ON)
-    - os: linux
-      dist: bionic
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-9
-      env:
-        - JOB_NAME="bionic gcc9 with libscsynth"
-        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=true
-
-    # Ubuntu 18.04 gcc9 no QT (linting)
-    - os: linux
-      dist: bionic
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-9
-      env:
-        - JOB_NAME="bionic gcc9 no Qt with linting"
-        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
-        - QT=false
-        - DO_LINT=true
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-
-    # Ubuntu 18.04 gcc9 use syslibs
-    # This is disabled because Ubuntu 18.04 doesn't have an up to date version
-    # of Boost easily available.
-    #- os: linux
-    #  dist: bionic
-    #  addons:
-    #    apt:
-    #      sources:
-    #        - ubuntu-toolchain-r-test
-    #      packages:
-    #        - g++-9
-    #  env:
-    #    - JOB_NAME="bionic gcc9 no Qt with linting"
-    #    - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
-    #    - QT=true
-    #    - DO_LINT=false
-    #    - USE_SYSLIBS=true
-
-    # Ubuntu 16.04 clang4 (no ableton)
-    - os: linux
-      dist: xenial
-      env:
-        - JOB_NAME="xenial clang4.0"
-        - CLANG_VERSION=4.0
-        - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-
-    # Ubuntu 18.04 clang5
-    - os: linux
-      dist: bionic
-      env:
-        - JOB_NAME="bionic clang5.0"
-        - CLANG_VERSION=5.0
-        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-
-    # Ubuntu 18.04 clang6
-    - os: linux
-      dist: bionic
-      env:
-        - JOB_NAME="bionic clang6.0"
-        - CLANG_VERSION=6.0
-        - MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-
-    # Ubuntu 18.04 clang7
-    - os: linux
-      dist: bionic
-      env:
-        - JOB_NAME="bionic clang7"
-        - CLANG_VERSION=7
-        - MATRIX_EVAL="CC=clang-7 && CXX=clang++-7"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-
-    # Ubuntu 18.04 clang8
-    - os: linux
-      dist: bionic
-      env:
-        - JOB_NAME="bionic clang8"
-        - CLANG_VERSION=8
-        - MATRIX_EVAL="CC=clang-8 && CXX=clang++-8"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-
-    # Ubuntu 18.04 clang9
-    - os: linux
-      dist: bionic
-      env:
-        - JOB_NAME="bionic clang9"
-        - CLANG_VERSION=9
-        - MATRIX_EVAL="CC=clang-9 && CXX=clang++-9"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-
-    # Ubuntu 18.04 clang10
-    - os: linux
-      dist: bionic
-      env:
-        - JOB_NAME="bionic clang10"
-        - CLANG_VERSION=10
-        - MATRIX_EVAL="CC=clang-10 && CXX=clang++-10"
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
+        - S3_DEPLOY_PREFIX="SC-xcode11.6-newQT-" # turn on S3 deployment
+        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.6-newQT" # turn on Github deployment
 
 # use ccache to speed up build times. on osx,
 # we install it during the the before_install step
