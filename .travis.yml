@@ -16,82 +16,107 @@ matrix:
     # macOS jobs (taking longer time to finish) run first to decrease overall build time
 
     # macOS 10.13 xcode10 legacy build with qt 5.9
+    # - os: osx
+    #   osx_image: xcode10.1
+    #   env:
+    #     - JOB_NAME="macos xcode10.1"
+    #     - IS_LEGACY_BUILD=true
+    #     - QT=true
+    #     - DO_LINT=false
+    #     - USE_SYSLIBS=false
+    #     - SHARED_LIBSCSYNTH=false
+    #     - S3_DEPLOY_PREFIX="SC-xcode10.1-" # turn on S3 deployment
+    #     - GITHUB_DEPLOY_SUFFIX="-macOS-xcode10.1" # turn on Github deployment
+    # 
+    # - os: osx
+    #   osx_image: xcode10.1
+    #   env:
+    #     - JOB_NAME="macos xcode10.1 new qt"
+    #     - IS_LEGACY_BUILD=false
+    #     - QT=true
+    #     - DO_LINT=false
+    #     - USE_SYSLIBS=false
+    #     - SHARED_LIBSCSYNTH=false
+    #     - S3_DEPLOY_PREFIX="SC-xcode10.1-newQT-" # turn on S3 deployment
+    #     - GITHUB_DEPLOY_SUFFIX="-macOS-xcode10.1-newQT" # turn on Github deployment
+    # 
+    # # macOS 10.14 xcode11
+    # - os: osx
+    #   osx_image: xcode11.3
+    #   env:
+    #     - JOB_NAME="macos xcode11.3"
+    #     - IS_LEGACY_BUILD=true
+    #     - QT=true
+    #     - DO_LINT=false
+    #     - USE_SYSLIBS=false
+    #     - SHARED_LIBSCSYNTH=false
+    #     - S3_DEPLOY_PREFIX="SC-xcode11.3-" # turn on S3 deployment
+    #     - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.3" # turn on Github deployment
+    # 
+    # # macOS 10.14 xcode11
+    # - os: osx
+    #   osx_image: xcode11.3
+    #   env:
+    #     - JOB_NAME="macos xcode11.3 new qt"
+    #     - IS_LEGACY_BUILD=false
+    #     - QT=true
+    #     - DO_LINT=false
+    #     - USE_SYSLIBS=false
+    #     - SHARED_LIBSCSYNTH=false
+    #     - S3_DEPLOY_PREFIX="SC-xcode11.3-newQT-" # turn on S3 deployment
+    #     - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.3-newQT" # turn on Github deployment
+    
+    # macOS 10.14 xcode11
     - os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11
       env:
-        - JOB_NAME="macos xcode10.1"
+        - JOB_NAME="macos xcode11.0"
         - IS_LEGACY_BUILD=true
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-        - S3_DEPLOY_PREFIX="SC-xcode10.1-" # turn on S3 deployment
-        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode10.1" # turn on Github deployment
-
-    - os: osx
-      osx_image: xcode10.1
-      env:
-        - JOB_NAME="macos xcode10.1 new qt"
-        - IS_LEGACY_BUILD=false
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-        - S3_DEPLOY_PREFIX="SC-xcode10.1-newQT-" # turn on S3 deployment
-        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode10.1-newQT" # turn on Github deployment
+        - S3_DEPLOY_PREFIX="SC-xcode11.0-" # turn on S3 deployment
+        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.0" # turn on Github deployment
 
     # macOS 10.14 xcode11
     - os: osx
-      osx_image: xcode11.3
+      osx_image: xcode11
       env:
-        - JOB_NAME="macos xcode11.3"
-        - IS_LEGACY_BUILD=true
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-        - S3_DEPLOY_PREFIX="SC-xcode11.3-" # turn on S3 deployment
-        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.3" # turn on Github deployment
-
-    # macOS 10.14 xcode11
-    - os: osx
-      osx_image: xcode11.3
-      env:
-        - JOB_NAME="macos xcode11.3 new qt"
+        - JOB_NAME="macos xcode11.0 new qt"
         - IS_LEGACY_BUILD=false
         - QT=true
         - DO_LINT=false
         - USE_SYSLIBS=false
         - SHARED_LIBSCSYNTH=false
-        - S3_DEPLOY_PREFIX="SC-xcode11.3-newQT-" # turn on S3 deployment
-        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.3-newQT" # turn on Github deployment
+        - S3_DEPLOY_PREFIX="SC-xcode11.0-newQT-" # turn on S3 deployment
+        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.0-newQT" # turn on Github deployment
 
-
-    # macOS 10.15 xcode11
-    - os: osx
-      osx_image: xcode11.6
-      env:
-        - JOB_NAME="macos xcode11.6"
-        - IS_LEGACY_BUILD=true
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-        - S3_DEPLOY_PREFIX="SC-xcode11.3-" # turn on S3 deployment
-        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.3" # turn on Github deployment
-
-    # macOS 10.15 xcode11
-    - os: osx
-      osx_image: xcode11.6
-      env:
-        - JOB_NAME="macos xcode11.6 new qt"
-        - IS_LEGACY_BUILD=false
-        - QT=true
-        - DO_LINT=false
-        - USE_SYSLIBS=false
-        - SHARED_LIBSCSYNTH=false
-        - S3_DEPLOY_PREFIX="SC-xcode11.6-newQT-" # turn on S3 deployment
-        - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.6-newQT" # turn on Github deployment
+    # # macOS 10.15 xcode11
+    # - os: osx
+    #   osx_image: xcode11.6
+    #   env:
+    #     - JOB_NAME="macos xcode11.6"
+    #     - IS_LEGACY_BUILD=true
+    #     - QT=true
+    #     - DO_LINT=false
+    #     - USE_SYSLIBS=false
+    #     - SHARED_LIBSCSYNTH=false
+    #     - S3_DEPLOY_PREFIX="SC-xcode11.6-" # turn on S3 deployment
+    #     - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.6" # turn on Github deployment
+    # 
+    # # macOS 10.15 xcode11
+    # - os: osx
+    #   osx_image: xcode11.6
+    #   env:
+    #     - JOB_NAME="macos xcode11.6 new qt"
+    #     - IS_LEGACY_BUILD=false
+    #     - QT=true
+    #     - DO_LINT=false
+    #     - USE_SYSLIBS=false
+    #     - SHARED_LIBSCSYNTH=false
+    #     - S3_DEPLOY_PREFIX="SC-xcode11.6-newQT-" # turn on S3 deployment
+    #     - GITHUB_DEPLOY_SUFFIX="-macOS-xcode11.6-newQT" # turn on Github deployment
 
 # use ccache to speed up build times. on osx,
 # we install it during the the before_install step
